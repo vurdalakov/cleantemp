@@ -6,8 +6,7 @@
 * deletes directories that contain only files and directories that were last modified before Windows startup;
 * deletes files that that were last modified before Windows startup.
 
-Exceptions:
-* files with "lock" name.
+It is recommended to run this tool with elevated privileges ("Run as administrator").
 
 ## License
 

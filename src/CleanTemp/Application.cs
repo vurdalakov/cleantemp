@@ -48,11 +48,16 @@
 
             foreach (var directoryInfo in tempDirectoryInfo.EnumerateDirectories())
             {
+                if (directoryInfo.LastWriteTime >= windowsStartupTime)
+                {
+                    continue;
+                }
+
                 var isOld = true;
 
                 foreach (var fileSystemInfo in directoryInfo.EnumerateFileSystemInfos("*.*", SearchOption.AllDirectories))
                 {
-                    if ((fileSystemInfo.LastWriteTime >= windowsStartupTime) || fileSystemInfo.Name.Equals("lock"))
+                    if (fileSystemInfo.LastWriteTime >= windowsStartupTime)
                     {
                         isOld = false;
                         break;
@@ -90,13 +95,15 @@
         {
             try
             {
-                directoryInfo.Delete(true);
+                var directoryPath = this.AppendLongPathPrefix(directoryInfo.FullName);
+
+                Directory.Delete(directoryPath, true);
 
                 this._deletedDirectories++;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Cannot delete directory '{directoryInfo.Name}': {ex.Message}");
             }
         }
 
@@ -104,14 +111,20 @@
         {
             try
             {
-                fileInfo.Delete();
+                var filePath = this.AppendLongPathPrefix(fileInfo.FullName);
+
+                File.Delete(filePath);
 
                 this._deletedFiles++;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"Cannot delete file '{fileInfo.Name}': {ex.Message}");
             }
         }
+
+        private const String LongPathPrefix = @"\\?\";
+
+        private String AppendLongPathPrefix(String filePath) => (filePath != null) && !filePath.StartsWith(LongPathPrefix) ? LongPathPrefix + filePath : filePath;
     }
 }
