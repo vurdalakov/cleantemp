@@ -55,7 +55,7 @@
 
                 var isOld = true;
 
-                foreach (var fileSystemInfo in directoryInfo.EnumerateFileSystemInfos("*.*", SearchOption.AllDirectories))
+                foreach (var fileSystemInfo in directoryInfo.EnumerateFileSystemInfosSafe("*.*", SearchOption.AllDirectories))
                 {
                     if (fileSystemInfo.LastWriteTime >= windowsStartupTime)
                     {

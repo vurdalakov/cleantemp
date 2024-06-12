@@ -7,7 +7,7 @@
     <ProjectGuid>{09D8DD48-15C9-4002-A2C6-05F6F3A7B14C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Vurdalakov.CleanTemp</RootNamespace>
-    <AssemblyName>CleanTemp</AssemblyName>
+    <AssemblyName>cleantemp</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
